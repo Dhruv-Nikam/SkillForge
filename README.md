@@ -7,11 +7,11 @@
 <p align="center">
   <a href="https://skillforge.onrender.com"><strong>🚀 Visit Live Application</strong></a>
   &nbsp; | &nbsp;
-  <a href="https://github.com/dhruv/SkillForge"><strong>📂 GitHub Repository</strong></a>
+  <a href="https://github.com/Dhruv-Nikam/SkillForge"><strong>📂 GitHub Repository</strong></a>
 </p>
 
 <p align="center">
-  <strong>Crafted with ❤️ by <a href="https://github.com/dhruv">Dhruv</a></strong> — Full-Stack MERN Developer
+  <strong>Crafted with ❤️ by <a href="https://github.com/Dhruv-Nikam">Dhruv</a></strong> — Full-Stack MERN Developer
 </p>
 
 ---

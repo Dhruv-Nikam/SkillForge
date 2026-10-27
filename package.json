@@ -3,11 +3,11 @@
   "private": true,
   "version": "1.0.0",
   "description": "SkillForge — Premier peer-to-peer student skill exchange and collaborative learning platform.",
-  "author": "Dhruv",
-  "homepage": "https://github.com/dhruv/SkillForge#readme",
+  "author": "Dhruv-Nikam",
+  "homepage": "https://github.com/Dhruv-Nikam/SkillForge#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dhruv/SkillForge.git"
+    "url": "https://github.com/Dhruv-Nikam/SkillForge.git"
   },
   "workspaces": [
     "client",
