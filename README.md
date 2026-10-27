@@ -7,6 +7,8 @@
 <p align="center">
   <a href="https://skillforge-cq4c.onrender.com"><strong>🚀 Visit Live Application</strong></a>
   &nbsp; | &nbsp;
+  <a href="https://drive.google.com/drive/u/0/folders/1qOh54ipARfhS7508y1-yGOZjO4Kpxdo0"><strong>🎬 Watch Demo Video</strong></a>
+  &nbsp; | &nbsp;
   <a href="https://github.com/Dhruv-Nikam/SkillForge"><strong>📂 GitHub Repository</strong></a>
 </p>
 
@@ -33,6 +35,8 @@ SkillForge is a free-to-use platform with no subscriptions or paywalls. It encou
 ### 🌐 Live Demo
 
 **Try SkillForge here:** https://skillforge-cq4c.onrender.com
+
+**Watch Demo Video Walkthrough:** https://drive.google.com/drive/u/0/folders/1qOh54ipARfhS7508y1-yGOZjO4Kpxdo0
 
 The application is deployed on Render as a unified service with MongoDB Atlas storage.
 
