@@ -206,10 +206,6 @@ npm run build --workspace client
 
 ---
 
-## 📄 License
-
-MIT License — see LICENSE for details.
-
 <p align="center">
   <strong>SkillForge — Forge Your Skills. Master Your Craft. Grow Together.</strong>
 </p>
