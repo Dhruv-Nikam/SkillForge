@@ -201,7 +201,7 @@ npm run build --workspace client
 ## 👤 Author
 
 **Dhruv**  
-- GitHub: [@dhruv](https://github.com/dhruv)  
+- GitHub: [@Dhruv-Nikam](https://github.com/Dhruv-Nikam)  
 - Role: Full-Stack MERN Developer & Maintainer
 
 ---
