@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="forgeGrad" x1="4" y1="4" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#059669" />
+      <stop offset="50%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <filter id="forgeGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#06b6d4" flood-opacity="0.35" />
+    </filter>
+  </defs>
+  <rect width="48" height="48" rx="12" fill="url(#forgeGrad)" />
+  <path d="M26 6L10 26H24L22 42L38 22H24L26 6Z" fill="#FFFFFF" filter="url(#forgeGlow)" stroke="#FFFFFF" stroke-width="0.5" stroke-linejoin="round" />
+</svg>

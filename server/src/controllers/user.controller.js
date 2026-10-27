@@ -1,0 +1,88 @@
+import mongoose from 'mongoose'
+import Skill from '../models/Skill.js'
+import User from '../models/User.js'
+import { HttpError } from '../utils/HttpError.js'
+import { toSafeUser } from '../services/auth.service.js'
+import { discoverStudents as findStudents } from '../services/matching.service.js'
+import { discoveryQuerySchema } from '../validators/discovery.validator.js'
+
+async function runDiscovery(request, response, recommendationsOnly) {
+  const parsed = discoveryQuerySchema.safeParse(request.query)
+  if (!parsed.success) {
+    throw new HttpError(400, parsed.error.issues[0]?.message ?? 'Invalid discovery filters.', 'VALIDATION_ERROR')
+  }
+  await request.user.populate([
+    { path: 'skillsToTeach.skill', select: 'name normalizedName aliases category' },
+    { path: 'skillsToLearn.skill', select: 'name normalizedName aliases category' },
+  ])
+  const filters = { ...parsed.data, page: Number(parsed.data.page), limit: Number(parsed.data.limit) }
+  const result = await findStudents(request.user, filters, recommendationsOnly)
+  response.json({ success: true, data: result })
+}
+
+export async function discoverStudents(request, response) {
+  return runDiscovery(request, response, false)
+}
+
+export async function getRecommendations(request, response) {
+  return runDiscovery(request, response, true)
+}
+
+async function validateSkillReferences(entries) {
+  const ids = [...new Set(entries.map((entry) => entry.skill))]
+  const count = await Skill.countDocuments({ _id: { $in: ids }, status: 'ACTIVE' })
+  if (count !== ids.length) {
+    throw new HttpError(400, 'Select skills from the available catalogue.', 'INVALID_SKILL')
+  }
+  return entries.map((entry) => ({
+    skill: new mongoose.Types.ObjectId(entry.skill),
+    proficiency: entry.proficiency,
+  }))
+}
+
+export async function getMyProfile(request, response) {
+  await request.user.populate([
+    { path: 'skillsToTeach.skill', select: 'name category aliases' },
+    { path: 'skillsToLearn.skill', select: 'name category aliases' },
+  ])
+  response.json({ success: true, data: { user: toSafeUser(request.user) } })
+}
+
+export async function updateMyProfile(request, response) {
+  const input = request.validatedBody
+  const [skillsToTeach, skillsToLearn] = await Promise.all([
+    validateSkillReferences(input.skillsToTeach),
+    validateSkillReferences(input.skillsToLearn),
+  ])
+  const user = await User.findByIdAndUpdate(
+    request.user._id,
+    {
+      $set: {
+        name: input.name,
+        bio: input.bio,
+        college: input.college,
+        ...(input.openToAnySkill === undefined ? {} : { openToAnySkill: input.openToAnySkill }),
+        skillsToTeach,
+        skillsToLearn,
+        ...(input.profileImage === undefined ? {} : { profileImage: input.profileImage }),
+        ...(input.availability === undefined ? {} : { availability: input.availability }),
+      },
+    },
+    { new: true, runValidators: true },
+  )
+    .populate('skillsToTeach.skill', 'name category aliases')
+    .populate('skillsToLearn.skill', 'name category aliases')
+  response.json({ success: true, data: { user: toSafeUser(user) } })
+}
+
+export async function getPublicProfile(request, response) {
+  if (!mongoose.isValidObjectId(request.params.id)) {
+    throw new HttpError(404, 'This profile could not be found.', 'USER_NOT_FOUND')
+  }
+  const user = await User.findById(request.params.id)
+    .select('name profileImage bio college openToAnySkill skillsToTeach skillsToLearn createdAt')
+    .populate('skillsToTeach.skill', 'name category aliases')
+    .populate('skillsToLearn.skill', 'name category aliases')
+  if (!user) throw new HttpError(404, 'This profile could not be found.', 'USER_NOT_FOUND')
+  response.json({ success: true, data: { user: user.toJSON() } })
+}

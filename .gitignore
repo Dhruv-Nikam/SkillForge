@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Environment secrets (keep example files)
+.env
+.env.*
+!.env.example
+
+# Build output
+dist/
+client/dist/
+server/dist/
+coverage/
+
+# Logs and local caches
+*.log
+npm-debug.log*
+.vite/
+.cache/
+*.local
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
